@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sujit Kumar Ram | सीखो और कमाओ पोर्टल</title>
+    <!-- यह सुनिश्चित करेगा कि आपका ब्राउज़र हमेशा नई फ़ाइल लोड करे (कैश बाईपास) -->
+    <script src="https://cdn.tailwindcss.com?v=1.7"></script> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* सामान्य बॉडी और कंटेनर स्टाइलिंग */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* हल्का नीला बैकग्राउंड */
+            transition: all 0.3s ease;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1rem;
+        }
+        
+        /* हेडर (Header) स्टाइलिंग - ग्रेडिएंट और शैडो */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        /* टैब बटन (Tab Button) स्टाइलिंग */
+        .tab-button {
+            transition: all 0.3s ease;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.2); 
+            color: white;
+        }
+        .tab-button.active {
+            background-color: #facc15; /* एक्टिव टैब: गोल्डन यलो */
+            color: #1e3a8a;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(250, 202, 21, 0.5);
+            transform: translateY(-2px);
+        }
+        .tab-button:hover:not(.active) {
+            background-color: #3b82f6;
+        }
+        
+        /* सर्विस कार्ड (Service Card) स्टाइलिंग */
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid #3b82f6; /* कार्ड पर नीला बॉर्डर */
+            height: 100%; 
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* टैग (Tag) स्टाइलिंग */
+        .live-tag { background-color: #ef4444; } /* Red */
+        .practice-tag { background-color: #f97316; } /* Orange */
+        .dev-tag { background-color: #0d9488; } /* Teal */
+        
+        /* मॉडल (Modal) स्टाइलिंग */
+        .modal {
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: white;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<div id="app" class="container">
+    <header class="header">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-3xl font-extrabold text-yellow-300 mb-2 md:mb-0">
+                Sujit Kumar Ram: सीखो और कमाओ पोर्टल
+            </h1>
+            <!-- प्रमाणीकरण स्थिति प्रदर्शन -->
+            <div id="auth-status-display" class="text-sm font-semibold p-2 rounded-full bg-yellow-400 text-indigo-900 shadow-md">
+                लॉगिन की जाँच हो रही है...
+            </div>
+        </div>
+        
+        <!-- नेविगेशन टैब -->
+        <nav class="mt-4">
+            <div class="flex flex-wrap gap-2 justify-center">
+                <button class="tab-button px-4 py-2 rounded-full active" data-tab="gov">
+                    <i class="fas fa-landmark mr-2"></i> सरकारी सेवाएँ
+                </button>
+                <button class="tab-button px-4 py-2 rounded-full" data-tab="ai">
+                    <i class="fas fa-brain mr-2"></i> AI और ग्रोथ गुरु
+                </button>
+                <button class="tab-button px-4 py-2 rounded-full" data-tab="dev">
+                    <i class="fas fa-code mr-2"></i> देव. सेंटर (वेब/ऐप)
+                </button>
+                <button class="tab-button px-4 py-2 rounded-full" data-tab="earn">
+                    <i class="fas fa-hand-holding-usd mr-2"></i> सीखो और कमाओ
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="py-8">
+        
+        <!-- 1. सरकारी सेवाएँ (Govt Services) -->
+        <div id="gov" class="tab-content grid grid-cols-1 md:grid-cols-3 gap-6">
+            <h2 class="col-span-full text-2xl font-bold text-indigo-800 mb-4 border-b pb-2">सरकारी सेवाएँ (सेवाएँ)</h2>
+            
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('Aadhar Seva', 'यह Aadhaar Card सेवाओं के लिए एक विस्तृत प्रशिक्षण और अभ्यास मॉड्यूल है। आप यहाँ अपडेट, स्टेटस चेक और नामांकन प्रक्रिया को सीख सकते हैं।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">Aadhar Seva</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">आधार कार्ड अपडेट, स्टेटस और नामांकन सेवाएँ।</p>
+            </div>
+            
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('PAN Card Seva', 'यह PAN Card सेवाओं के लिए एक विस्तृत प्रशिक्षण और अभ्यास मॉड्यूल है। नए PAN के लिए आवेदन करने और सुधार करने की प्रक्रिया सीखें।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">PAN Card Seva</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">नए PAN के लिए आवेदन और सुधार सेवाएँ।</p>
+            </div>
+
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('E-Shram Card Seva', 'यह E-Shram Card सेवाओं के लिए एक विस्तृत प्रशिक्षण और अभ्यास मॉड्यूल है। पंजीकरण और डेटा अपडेट करने की प्रक्रिया सीखें।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">E-Shram Card Seva</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">ई-श्रम कार्ड पंजीकरण और अपडेट।</p>
+            </div>
+        </div>
+
+        <!-- 2. AI और ग्रोथ गुरु (AI and Growth Guru) -->
+        <div id="ai" class="tab-content hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+            <h2 class="col-span-full text-2xl font-bold text-indigo-800 mb-4 border-b pb-2">AI और ग्रोथ गुरु (कौशल)</h2>
+
+            <!-- AI Photo Generation (Live) -->
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('AI फोटो जनरेटर', 'यह Gemini-पावर्ड टूल है। आप कोई भी टेक्स्ट प्रॉम्प्ट दें, और AI तुरंत आपके लिए एक सुंदर, कस्टम फोटो (तस्वीर) बनाकर देगा।', 'live')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">AI फोटो जनरेटर</h3>
+                    <span class="live-tag text-white text-xs font-semibold px-2 py-1 rounded-full">⚡️ LIVE</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">AI फोटो एडिटिंग और फोटो बनाना।</p>
+            </div>
+            
+            <!-- AI Video/Voice (Practice) -->
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('AI वीडियो और वॉयस एडिटिंग', 'यह AI Voice Editing, AI Video Editing और AI Video बनाने का विस्तृत प्रशिक्षण मॉड्यूल है। आप यहाँ स्क्रिप्टिंग और वॉयस ओवर कौशल सीखेंगे।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">AI वीडियो/वॉयस</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">AI वीडियो मेकिंग और वॉयस एडिटिंग कौशल।</p>
+            </div>
+
+            <!-- YouTube Growth (Practice) -->
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('YouTube ग्रोथ गुरु', 'चैनल बनाना, मोनिटाइजेशन चेक, टाइटल, टैग और एल्गोरिथम समझने का विस्तृत ट्रेनिंग सेंटर।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">YouTube ग्रोथ गुरु</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">चैनल ग्रो करें, टाइटल जनरेट करें, मोनिटाइज करें।</p>
+            </div>
+
+            <!-- Instagram Growth (Practice) -->
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('Instagram/Facebook ग्रोथ', 'Instagram और Facebook के एल्गोरिथम को समझें, रील्स बनाना सीखें, और अपने फॉलोअर्स को तेज़ी से बढ़ाएँ।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">Instagram/Facebook</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">एल्गोरिथम, रीच और फॉलोअर्स बढ़ाने की तकनीक।</p>
+            </div>
+            
+            <!-- Telegram/Social Media (Practice) -->
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('Telegram/सोशल मीडिया प्रबंधन', 'Telegram चैनल बनाना और ग्रो करना, साथ ही सभी सोशल मीडिया प्लेटफ़ॉर्म को मैनेज करने का कौशल सीखें।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">Telegram/सोशल मीडिया</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">चैनल ग्रो करना और मल्टी-प्लेटफ़ॉर्म प्रबंधन।</p>
+            </div>
+
+            <!-- Customer Support (Live - Simulated) -->
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('Gemini कस्टमर सपोर्ट', 'यह Gemini पर आधारित एक AI चैटबॉट है जो किसी भी सरकारी सेवा, तकनीकी समस्या या कौशल से जुड़े आपके सवालों का तुरंत जवाब देगा।', 'live')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">Gemini कस्टमर सपोर्ट</h3>
+                    <span class="live-tag text-white text-xs font-semibold px-2 py-1 rounded-full">⚡️ LIVE</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">AI चैट, तुरंत सहायता और जानकारी।</p>
+            </div>
+
+        </div>
+
+        <!-- 3. देव. सेंटर (वेब/ऐप) (Dev Center) -->
+        <div id="dev" class="tab-content hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+            <h2 class="col-span-full text-2xl font-bold text-indigo-800 mb-4 border-b pb-2">देव. सेंटर (वेबसाइट और ऐप)</h2>
+            
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('GitHub वेबसाइट डेवलपर', 'वेबसाइट कैसे बनाते हैं, इसका चरण-दर-चरण अभ्यास करें। सीखें कि कोड को GitHub पर कैसे डाला जाता है और एक लाइव वेबसाइट कैसे बनाई जाती है।', 'dev')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">GitHub वेबसाइट डेवलपर</h3>
+                    <span class="dev-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">GitHub के साथ वेबसाइट बनाना सीखें।</p>
+            </div>
+
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('मोबाइल ऐप डेवलपर', 'Android (APK) और iOS (Apple) ऐप बनाने की बुनियादी बातें सीखें। यह ऐप डेवलपमेंट प्रोसेस का विस्तृत अभ्यास प्रदान करता है।', 'dev')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">मोबाइल ऐप डेवलपर</h3>
+                    <span class="dev-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">Android/iOS ऐप्स बनाने का प्रशिक्षण।</p>
+            </div>
+        </div>
+        
+        <!-- 4. सीखो और कमाओ (Learn & Earn) -->
+        <div id="earn" class="tab-content hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+            <h2 class="col-span-full text-2xl font-bold text-indigo-800 mb-4 border-b pb-2">सीखो और कमाओ (कौशल और आय)</h2>
+            
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('स्किल ट्रेनिंग प्लेटफॉर्म', 'यहाँ आपको ऑनलाइन पैसे कमाने के लिए ज़रूरी सभी डिजिटल स्किल्स (जैसे कोडिंग, AI, मार्केटिंग) सीखने का मौका मिलता है।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">स्किल ट्रेनिंग प्लेटफॉर्म</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">ऑनलाइन कमाई के लिए कौशल सीखें।</p>
+            </div>
+            
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('आधार-आधारित नकद निकासी (AEPS)', 'AEPS (Aadhaar Enabled Payment System) के माध्यम से Bank Khata से पैसे निकालने की प्रक्रिया का विस्तृत अभ्यास करें। यह सिस्टम फिंगरप्रिंट लॉगिन पर काम करता है।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">नकद निकासी (AEPS)</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">फिंगरप्रिंट से बैंक खाते से नकद निकासी का अभ्यास।</p>
+            </div>
+
+            <div class="service-card bg-white p-6 rounded-lg shadow-md" onclick="showModal('बैंक खाता सेवाएँ', 'बैंक खाता खोलना, KYC प्रक्रिया समझना, और ऑनलाइन बैंकिंग का उपयोग करने का प्रशिक्षण।', 'practice')">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xl text-gray-700">बैंक खाता सेवाएँ</h3>
+                    <span class="practice-tag text-white text-xs font-semibold px-2 py-1 rounded-full">🛠️ अभ्यास</span>
+                </div>
+                <p class="text-gray-500 mt-2 text-sm">बैंक खाता खोलने और KYC का प्रशिक्षण।</p>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- Modal Structure for Service Details -->
+<div id="service-modal" class="modal fixed inset-0 flex items-center justify-center p-4 hidden">
+    <div class="modal-content w-full max-w-md p-6 rounded-xl shadow-2xl">
+        <h3 id="modal-title" class="text-2xl font-bold mb-3 text-indigo-700"></h3>
+        <p id="modal-status" class="text-sm font-semibold mb-4 p-2 rounded-lg"></p>
+        <p id="modal-description" class="text-gray-600 mb-6"></p>
+        <div class="flex justify-end space-x-3">
+            <button id="modal-close-button" class="px-5 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition">
+                बंद करें
+            </button>
+            <button id="modal-start-button" class="px-5 py-2 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition">
+                सेवा शुरू करें
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    // =================================================================
+    // 🔥 Firebase और Auth सेटअप (Canvas के लिए अनिवार्य) 🔥
+    // =================================================================
+    
+    // फायरबेस लाइब्रेरीज़ आयात करें
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    
+    // Firestore डीबग लॉगिंग चालू करें
+    setLogLevel('Debug');
+
+    let db;
+    let auth;
+    let userId = null;
+    let isAuthReady = false;
+
+    // Canvas द्वारा प्रदान किए गए ग्लोबल वेरिएबल लोड करें
+    // यह कॉन्फ़िगरेशन GitHub Pages पर खाली रहेगा, जो कि अपेक्षित है।
+    const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+    const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+    
+    const authStatusElement = document.getElementById('auth-status-display');
+
+    async function initializeFirebase() {
+        if (!firebaseConfig || Object.keys(firebaseConfig).length === 0) {
+            // GitHub Pages जैसे सार्वजनिक डिप्लॉयमेंट के लिए रास्ता (जहां Firebase नहीं है)
+            authStatusElement.textContent = '❌ डेटाबेस उपलब्ध नहीं। (सिर्फ़ प्रदर्शन मोड)';
+            authStatusElement.classList.remove('bg-yellow-400');
+            authStatusElement.classList.add('bg-red-500', 'text-white');
+            console.error("Firebase Configuration is missing. Running in display-only mode.");
+            isAuthReady = true; 
+            return;
+        }
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+
+            // प्रमाणीकरण स्थिति में बदलाव के लिए सुनें
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    isAuthReady = true;
+                    // सफल मैसेज
+                    authStatusElement.textContent = `✅ Sujit Kumar Ram पोर्टल में स्वागत! (ID: ${userId.substring(0, 4)}...)`;
+                    authStatusElement.classList.remove('bg-yellow-400', 'bg-red-500', 'bg-blue-500');
+                    authStatusElement.classList.add('bg-green-500', 'text-white');
+                    console.log("Firebase Auth Successful. User ID:", userId);
+                    
+                } else {
+                    // अगर कोई यूज़र लॉग इन नहीं है तो गुमनाम रूप से साइन इन करें
+                    try {
+                        if (initialAuthToken) {
+                            await signInWithCustomToken(auth, initialAuthToken);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch (error) {
+                        authStatusElement.textContent = `लॉगिन त्रुटि: ${error.message}`;
+                        authStatusElement.classList.remove('bg-yellow-400', 'bg-green-500', 'bg-blue-500');
+                        authStatusElement.classList.add('bg-red-500', 'text-white');
+                        console.error("Login Error:", error);
+                    }
+                }
+            });
+
+        } catch (error) {
+            authStatusElement.textContent = `शुरुआत की त्रुटि: ${error.message}`;
+            authStatusElement.classList.remove('bg-yellow-400', 'bg-green-500', 'bg-blue-500');
+            authStatusElement.classList.add('bg-red-500', 'text-white');
+            console.error("Firebase Initialization Error:", error);
+        }
+    }
+
+    // =================================================================
+    // UI और टैब नियंत्रण
+    // =================================================================
+
+    const tabs = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
+    const modal = document.getElementById('service-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalStatus = document.getElementById('modal-status');
+    const modalDescription = document.getElementById('modal-description');
+    const modalCloseButton = document.getElementById('modal-close-button');
+    const modalStartButton = document.getElementById('modal-start-button');
+    
+    // टैब स्विचिंग फ़ंक्शन
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.add('hidden'));
+
+            tab.classList.add('active');
+            const target = tab.getAttribute('data-tab');
+            document.getElementById(target).classList.remove('hidden');
+        });
+    });
+
+    // मॉडल दिखाने का फ़ंक्शन
+    window.showModal = (title, description, type) => {
+        modalTitle.textContent = title;
+        modalDescription.textContent = description;
+        
+        // मॉडल स्थिति (Live/Practice/Dev)
+        modalStatus.textContent = (type === 'live' ? '⚡️ LIVE' : (type === 'dev' ? '🛠️ DEV अभ्यास' : '🛠️ विस्तृत अभ्यास'));
+        modalStatus.className = 'text-sm font-semibold mb-4 p-2 rounded-lg text-white'; // क्लास साफ़ करें
+        
+        if (type === 'live') {
+            modalStatus.classList.add('live-tag', 'bg-red-500');
+        } else if (type === 'dev') {
+            modalStatus.classList.add('dev-tag', 'bg-teal-600');
+        } else {
+            modalStatus.classList.add('practice-tag', 'bg-orange-600');
+        }
+
+        modal.classList.remove('hidden');
+    };
+
+    // मॉडल बंद करने का फ़ंक्शन
+    modalCloseButton.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+
+    // "सेवा शुरू करें" बटन क्लिक हैंडलर
+    modalStartButton.addEventListener('click', () => {
+        if (isAuthReady) {
+            // प्रमाणीकरण सफल, सेवा शुरू करें
+            authStatusElement.textContent = `"${modalTitle.textContent}" सेवा शुरू...`;
+            authStatusElement.classList.remove('bg-green-500', 'bg-red-500', 'bg-yellow-400');
+            authStatusElement.classList.add('bg-blue-500', 'text-white');
+            modal.classList.add('hidden');
+        } else {
+            // प्रमाणीकरण तैयार नहीं या बाईपास (GitHub Pages मोड)
+            // चूंकि यह एक प्रदर्शन मोड है, हम एक चेतावनी दिखाएंगे
+            authStatusElement.textContent = '❌ लॉगिन/डेटाबेस उपलब्ध नहीं। (सिर्फ़ प्रदर्शन)';
+            authStatusElement.classList.remove('bg-yellow-400', 'bg-green-500', 'bg-blue-500');
+            authStatusElement.classList.add('bg-red-500', 'text-white');
+            
+            // कस्टम अलर्ट / टोस्ट मैसेज
+            alert("यह सेवा केवल प्रदर्शन मोड में है। वास्तविक डेटाबेस और लॉगिन के लिए इसे Canvas एनवायरनमेंट में चलाएँ।");
+            modal.classList.add('hidden');
+
+        }
+    });
+
+    // कस्टम अलर्ट फ़ंक्शन
+    function alert(message) {
+        const customAlert = document.createElement('div');
+        customAlert.className = 'fixed inset-0 flex items-center justify-center p-4 bg-black bg-opacity-70 z-50';
+        customAlert.innerHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
+                <h4 class="text-xl font-bold text-red-600 mb-3">असुविधा के लिए खेद है!</h4>
+                <p class="text-gray-700 mb-4">${message}</p>
+                <button onclick="document.body.removeChild(this.parentNode.parentNode)" class="w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition">
+                    ठीक है
+                </button>
+            </div>
+        `;
+        document.body.appendChild(customAlert);
+    }
+    
+    // Esc कुंजी पर मॉडल बंद करें
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            modal.classList.add('hidden');
+        }
+    });
+
+    // एक बार विंडो पूरी तरह से लोड होने पर Firebase शुरू करें
+    window.onload = initializeFirebase;
+
+</script>
+
+</body>
+</html>
